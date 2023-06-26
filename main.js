@@ -4,7 +4,29 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+function toggleLike(event) {
+  const heart = event.target;
+  mimicServerCall()
+    .then(() => {
+      heart.classList.toggle('activated-heart');
+      if (heart.innerHTML === '♡') {
+        heart.innerHTML = '♥';
+      } else {
+        heart.innerHTML = '♡';
+      }
+    })
+    .catch(error => {
+      errorMessage.textContent = error;
+      errorModal.classList.remove('hidden');
+      setTimeout(() => {
+        errorModal.classList.add('hidden');
+      }, 3000);
+    });
+}
 
+for (let heart of hearts) {
+  heart.addEventListener('click', toggleLike);
+}
 
 
 //------------------------------------------------------------------------------
